@@ -39,6 +39,10 @@ likes_table = db.Table(
 )
 
 class Tweet(db.Model):
+    def __init__(self, content: str, user_id: int):
+        self.content = content
+        self.user_id = user_id
+
     __tablename__ = 'tweets'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content = db.Column(db.String(280), nullable=False)
@@ -54,4 +58,12 @@ class Tweet(db.Model):
         lazy='subquery',
         backref=db.backref('liked_tweets', lazy=True)
     )
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'content': self.content,
+            'created_at': self.created_at.isoformat(),
+            'user_id': self.user_id
+        }
 
