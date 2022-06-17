@@ -38,7 +38,7 @@ likes_table = db.Table(
     )
 )
 
-class Tweets(db.Model):
+class Tweet(db.Model):
     __tablename__ = 'tweets'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content = db.Column(db.String(280), nullable=False)
