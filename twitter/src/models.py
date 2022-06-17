@@ -24,3 +24,25 @@ class Tweet(db.Model):
         nullable=False
     )
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+likes_table = db.table(
+    'likes',
+    db.Column(
+        'user_id', db.Integer,
+        db.ForeignKey('users.id'),
+        primary_key=True
+    ),
+
+    db.Column(
+        'tweet_id', db.Integer,
+        db.ForeignKey('tweets.id'),
+        primary_key=True
+    ),
+
+    db.Column(
+        'created_at', db.DateTime,
+        default=datetime.datetime.utcnow,
+        nullable=False
+    )
+
+)
