@@ -14,18 +14,8 @@ class User(db.Model):
     username = db.Column(db.String(128), unique=True, nullable=False)
     pasword = db.Column(db.String(128), nullable=False)
 
-class Tweet(db.Model):
-    __tablename__ = 'tweets'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    content = db.Column(db.String(280), nullable=False)
-    created_at = db.Column(
-        db.DateTime,
-        default=datetime.datetime.utcnow,
-        nullable=False
-    )
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-likes_table = db.table(
+likes_table = db.Table(
     'likes',
     db.Column(
         'user_id', db.Integer,
@@ -44,5 +34,16 @@ likes_table = db.table(
         default=datetime.datetime.utcnow,
         nullable=False
     )
-
 )
+
+class Tweet(db.Model):
+    __tablename__ = 'tweets'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    content = db.Column(db.String(280), nullable=False)
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.datetime.utcnow,
+        nullable=False
+    )
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
