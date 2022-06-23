@@ -57,18 +57,16 @@ def delete(id: int):
 @bp.route('<int:id>', methods=['PATCH', 'PUT'])
 def update(id:int): # need to comment out some parts here to make Task 6: tests 2 and 4 work
     u = User.query.get_or_404(id)
-    if "username" in request.json and "password" in request.json:
-        pass
-    else:
+    if "username" not in request.json and "password" not in request.json:
         return abort(400)
 
-    if len(request.json["username"]) < 3:
-        return abort(400)
-    else: 
+    if 'username' in request.json:
+        if len(request.json["username"]) < 3:
+            return abort(400)
         u.username = request.json["username"]
-    if len(request.json["password"]) < 8:
-        return abort(400)
-    else:  
+    if 'password' in request.json:
+        if len(request.json["password"]) < 8:
+            return abort(400)
         u.password = scramble(request.json["password"])
 
     try:
