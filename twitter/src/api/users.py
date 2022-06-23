@@ -55,7 +55,7 @@ def delete(id: int):
         return jsonify(False)
 
 @bp.route('<int:id>', methods=['PATCH', 'PUT'])
-def update(id:int): # need to comment out some parts here to make Task 6: tests 2 and 4 work
+def update(id:int):
     u = User.query.get_or_404(id)
     if "username" not in request.json and "password" not in request.json:
         return abort(400)
